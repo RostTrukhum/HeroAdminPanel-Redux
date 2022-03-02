@@ -8,17 +8,6 @@ import store from '../../store';
 
 import { heroCreated } from '../heroesList/heroesSlice';
 
-
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
-
 const HeroesAddForm = () => {
 
     const [heroName, setHeroName] = useState('')
@@ -27,7 +16,7 @@ const HeroesAddForm = () => {
 
     const {filtersLoadingStatus} = useSelector(state => state.filters)
     const dispatch = useDispatch()
-    const {request} = useHttp()
+/*     const {request} = useHttp() */
     const filters = selectAll(store.getState())
 
     const onSumbitHandler = (e) => {
@@ -40,14 +29,15 @@ const HeroesAddForm = () => {
             element: heroElement
         }
 
-        request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
+        /* request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
         .then(res => console.log(res, 'Отправка успешна'))
         .then(dispatch(heroCreated(newHero)))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err)) */
+        dispatch(heroCreated(newHero))
     
         setHeroName('');
         setHeroDescr('');
-        setHeroElement('');
+        /* setHeroElement(''); */
     }
 
     const renderFilters = (filters, status) => {
@@ -89,6 +79,7 @@ const HeroesAddForm = () => {
                     className="form-control" 
                     id="text" 
                     placeholder="Что я умею?"
+                    value={heroDescr}
                     onChange={(e) => setHeroDescr(e.target.value)}
                     style={{"height": '130px'}}/>
             </div>
@@ -101,7 +92,7 @@ const HeroesAddForm = () => {
                     id="element"
                     onChange={(e) => setHeroElement(e.target.value)} 
                     name="element">
-                    <option >Я владею элементом...</option>
+                    <option>Я владею элементом...</option>
                     {renderFilters(filters, filtersLoadingStatus)}
                 </select>
             </div>

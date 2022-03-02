@@ -10,11 +10,44 @@ import Spinner from '../spinner/Spinner';
 const HeroesFilters = () => {
     const {filtersLoadingStatus, activeFilter} = useSelector(state => state.filters)
     const dispatch = useDispatch()
-    const filters = selectAll(store.getState())
+    /* const filters = selectAll(store.getState()) */
     const {request} = useHttp()
 
+    const filters = [
+        {
+          "id": "all",
+          "name": "all",
+          "label": "Все",
+          "className": "btn-outline-dark"
+        },
+        {
+          "id": "fire",
+          "name": "fire",
+          "label": "Огонь",
+          "className": "btn-danger"
+        },
+        {
+          "id": "water",
+          "name": "water",
+          "label": "Вода",
+          "className": "btn-primary"
+        },
+        {
+          "id": "wind",
+          "name": "wind",
+          "label": "Ветер",
+          "className": "btn-success"
+        },
+        {
+          "id": "earth",
+          "name": "earth",
+          "label": "Земля",
+          "className": "btn-secondary"
+        }
+      ]
+
     useEffect(() => {
-        dispatch(fetchFilters(request))
+        dispatch(fetchFilters(filters))
     }, [])
 
     if(filtersLoadingStatus === 'loading') {

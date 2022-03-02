@@ -11,6 +11,18 @@
       "name": "Flema",
       "description": "asdasd",
       "element": "water"
+    },
+    {
+      "id": "babeca2f-94e2-45af-8d14-4fa4eac291aa",
+      "name": "vbdfdfg",
+      "description": "dfgdgdfg",
+      "element": "wind"
+    },
+    {
+      "id": "e8e33781-27fb-49ec-8c60-81779c1599bf",
+      "name": "fddfgdfg",
+      "description": "",
+      "element": "fire"
     }
   ],
   "filters": [

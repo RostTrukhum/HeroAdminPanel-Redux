@@ -15,13 +15,13 @@ const initialState = filtersAdapter.getInitialState({
     activeFilter: 'all'
 })
 
-export const fetchFilters = createAsyncThunk(
+/* export const fetchFilters = createAsyncThunk(
     'filters',
     () => {
         const { request } = useHttp()
         return request('http://localhost:3001/filters')
     }
-)
+) */
 
 const filtersSlice = createSlice({
     name: 'filters',
@@ -29,8 +29,11 @@ const filtersSlice = createSlice({
     reducers: {
         activeFilterChanged: (state, action) => {
             state.activeFilter = action.payload
+        },
+        fetchFilters: (state, action) => {
+            filtersAdapter.setAll(state, action.payload)
         }
-    },
+    }/* ,
     extraReducers: builder => {
         builder
             .addCase(fetchFilters.pending, state => {state.filtersLoadingStatus = 'loading'})
@@ -41,7 +44,7 @@ const filtersSlice = createSlice({
             .addCase(fetchFilters.rejected, state => {
                 state.filtersLoadingStatus = 'error'
             })
-    }
+    } */
 })
 
 const {actions, reducer} = filtersSlice
@@ -54,5 +57,6 @@ export const {
     filtersFetching,
     filtersFetched,
     filtersFetchingError,
-    activeFilterChanged
+    activeFilterChanged,
+    fetchFilters
 } = actions

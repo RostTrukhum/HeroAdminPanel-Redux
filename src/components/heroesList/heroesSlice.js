@@ -13,13 +13,13 @@ const initialState = heroesAdapter.getInitialState({
     heroesLoadingStatus: 'idle'
 })
 
-export const fetchHeroes = createAsyncThunk(
+/* export const fetchHeroes = createAsyncThunk(
     'heroes/fetchHeroes',
     () => {
         const { request } = useHttp()
         return request("http://localhost:3001/heroes")
     }
-)
+) */
 
 const heroesSlice = createSlice({
     name: 'heroes',
@@ -30,8 +30,11 @@ const heroesSlice = createSlice({
         },
         heroDeleted: (state, action) => {
             heroesAdapter.removeOne(state, action.payload)
+        },
+        fetchHeroes: (state, action) => {
+            heroesAdapter.setAll(state, action.payload)
         }
-    },
+    }/* ,
     extraReducers: (builder) => {
         builder
             .addCase(fetchHeroes.pending, state => {state.heroesLoadingStatus = 'loading'})
@@ -43,7 +46,7 @@ const heroesSlice = createSlice({
                 state.heroesLoadingStatus = 'error'
             })
             .addDefaultCase(() => {})
-    }
+    } */
 })
 
 const {actions, reducer} = heroesSlice
@@ -69,5 +72,6 @@ export const {
     heroesFetched,
     heroesFetchingError,
     heroCreated,
-    heroDeleted
+    heroDeleted,
+    fetchHeroes
 } = actions

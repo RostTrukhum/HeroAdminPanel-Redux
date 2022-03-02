@@ -8,11 +8,6 @@ import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import './heroesList.scss'
 
-// Задача для этого компонента:
-// При клике на "крестик" идет удаление персонажа из общего состояния
-// Усложненная задача:
-// Удаление идет и с json файла при помощи метода DELETE
-
 const HeroesList = () => {
     
     const filteredHeroes = useSelector(filteredHeroesSelector)
@@ -20,17 +15,33 @@ const HeroesList = () => {
     const dispatch = useDispatch();
     const { request } = useHttp();
 
+    const heroes = [
+        {
+          "id": 4,
+          "name": "Первый герой",
+          "description": "Первый герой в рейтинге!",
+          "element": "fire"
+        },
+        {
+          "id": "42a8654a-e7bf-41bc-a973-9bc0208698b8",
+          "name": "Flema",
+          "description": "asdasd",
+          "element": "water"
+        }
+      ]
+
     useEffect(() => {
-        dispatch(fetchHeroes())
+        dispatch(fetchHeroes(heroes))
 
         // eslint-disable-next-line
     }, []);
 
     const onDelete = useCallback((id) => {
-        request(`http://localhost:3001/heroes/${id}`, "DELETE")
+        /* request(`http://localhost:3001/heroes/${id}`, "DELETE")
             .then(data => console.log(data, 'Deleted'))
             .then(dispatch(heroDeleted(id)))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err)); */
+        dispatch(heroDeleted(id))
     }, [request]);
 
     if (heroesLoadingStatus === "loading") {
